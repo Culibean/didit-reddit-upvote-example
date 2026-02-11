@@ -7,21 +7,21 @@ export default async function SinglePostPage({ params }) {
   const postId = params.postId;
 
   const { rows: posts } = await db.query(
-    `SELECT posts.id, posts.title, posts.body, posts.created_at, users.name, 
+    `SELECT diditposts.id, diditposts.title, diditposts.body, diditposts.created_at, users.name, 
     COALESCE(SUM(votes.vote), 0) AS vote_total
-    FROM posts
-    JOIN users ON posts.user_id = users.id
-    LEFT JOIN votes ON votes.post_id = posts.id
-    WHERE posts.id = $1
-    GROUP BY posts.id, users.name
+    FROM diditposts
+    JOIN users ON diditposts.user_id = users.id
+    LEFT JOIN votes ON votes.post_id = diditposts.id
+    WHERE diditposts.id = $1
+    GROUP BY diditposts.id, users.name
     LIMIT 1;`,
-    [postId]
+    [postId],
   );
   const post = posts[0];
 
   const { rows: votes } = await db.query(
     `SELECT *, users.name from votes
-     JOIN users on votes.user_id = users.id`
+     JOIN users on votes.user_id = users.id`,
   );
 
   return (
