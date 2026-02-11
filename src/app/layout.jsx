@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import { UserInfo } from "../components/UserInfo";
+import { auth } from "@/auth";
 
 import "./globals.css";
 import Link from "next/link";
@@ -13,6 +14,8 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
+  const session = await auth();
+  const userId = session?.user?.id;
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -26,6 +29,12 @@ export default async function RootLayout({ children }) {
               className="ml-10 hover:bg-zinc-300 p-2 rounded bg-pink-300 text-black"
             >
               Add post
+            </Link>
+            <Link
+              href={`/profile/${userId}`}
+              className="ml-10 hover:bg-zinc-300 p-2 rounded bg-pink-300 text-black"
+            >
+              Profile
             </Link>
             <div className="ml-auto">
               <UserInfo />
