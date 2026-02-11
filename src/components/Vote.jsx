@@ -6,7 +6,7 @@ import { VoteButtons } from "./VoteButtons";
 async function getExistingVote(userId, postId) {
   const { rows: existingVotes } = await db.query(
     "SELECT * FROM votes WHERE user_id = $1 AND post_id = $2 LIMIT 1",
-    [userId, postId]
+    [userId, postId],
   );
 
   return existingVotes?.[0];
@@ -15,7 +15,7 @@ async function getExistingVote(userId, postId) {
 async function handleVote(userId, postId, newVote) {
   // Check if the user has already voted on this post
   if (!userId) {
-    throw new Error("Cannot vote without being logged in");
+    return { error: "Cannot vote without being logged in" };
   }
 
   const existingVote = await getExistingVote(userId, postId);
@@ -35,7 +35,7 @@ async function handleVote(userId, postId, newVote) {
     // Insert a new vote
     await db.query(
       "INSERT INTO votes (user_id, post_id, vote, vote_type) VALUES ($1, $2, $3, 'post')",
-      [userId, postId, newVote]
+      [userId, postId, newVote],
     );
   }
 

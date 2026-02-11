@@ -3,6 +3,21 @@ import { CommentList } from "@/components/CommentList";
 import { Vote } from "@/components/Vote";
 import { db } from "@/db";
 
+export async function generateMetadata({ params }) {
+  const postId = params.postId;
+
+  const { rows } = await db.query(
+    `SELECT title FROM diditposts WHERE id = $1`,
+    [postId],
+  );
+
+  const post = rows[0];
+
+  return {
+    title: post ? post.title : "Post not found",
+  };
+}
+
 export default async function SinglePostPage({ params }) {
   const postId = params.postId;
 
