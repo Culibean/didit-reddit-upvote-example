@@ -35,7 +35,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="max-w-screen-lg mx-auto p-4 bg-zinc-800 mt-10 rounded-xl">
+    <div className="max-w-screen-lg mx-auto p-4 bg-zinc-300 mt-10 rounded-xl">
       <h2 className="text-3xl mb-4">Add a new post</h2>
       <form action={savePost} className="flex flex-col space-y-4">
         <input
