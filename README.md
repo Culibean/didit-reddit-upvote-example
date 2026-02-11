@@ -1,3 +1,37 @@
+## Reflection
+
+- [x] deployed on Vercel: https://didit-reddit-upvote-example-smoky.vercel.app/
+
+I have found the setup guide clear and I was able to quite quickly get the page working on Vercel (also thanks to the youtube video guide). The only issue I encountered were the naming conventions in supabase but I managed to adapt it.
+
+I then had a look through the stretchgoals both on Moodle and the Readme and went through the ones I felt confident completing in the time. There was a lot I was able to use from last weeks and weeks 8 assignment. I think the majority of my time went on understanding the exisiting code without overwhelming myself (as in I have not looked at all components or files, only the ones I thought were relevant for the features I wanted to add). I also wanted to add the ones I thought made the most sense for being an initial protoype.
+
+The stretchgoal about infinite uploads I did not quite get, as when I tried to vote more than once, it sets it back to 0. But to fully understand this, I believe I need more time.
+
+I also learned some additional sql syntax (coalesce) which was super interesting.
+
+The main thing I have taken from this assignment was to take my time and set clear goals. Otherwise I think I would have been overwhelmed and would have made mistakes where there didn't need to be any.
+
+# Improvements
+
+I think I would refactor the setup slightly and add the header as a component rather than have it sitting within in layout.jsx. Otherwise scaling the app might get diffcult. I would also add the voting function in the action folder the same as comments (that would then probably also enable me to debug the upvote error).
+
+It might be good to check on the npm packages as several had severe vulnerabilities, so might add a note to the README so users can expect it and fix if necessary on their local machine.
+
+# Stretchgoals achieved:
+
+- [x] User profiles
+- [x] Sorting posts by recent (date posted), top (most upvotes), and most controversial (most upvotes _and_ downvotes)
+- [x] Metadata on PostPage
+
+Overall I really enjoyed this and it made me less anxious to go into more technical tasks or start as a memebr of the development team.
+
+## Resources:
+
+# SQL
+
+https://www.w3schools.com/sql/func_sqlserver_coalesce.asp
+
 ## Upvote
 
 Upvote is a Reddit-esque web application that allows users to create posts, upvote and downvote posts, and comment on posts in a multi-threaded, nested list.
@@ -32,7 +66,7 @@ The project is a work in progress and is not yet complete.
 
 ## Potential future features
 
-- [ ] User profiles
+- [x] User profiles
 - [x] Sorting posts by recent (date posted), top (most upvotes), and most controversial (most upvotes _and_ downvotes)
 - [ ] User karma scores
 - [ ] User badges / trophies (awards for achievements like number of posts, years on the site, etc.)
