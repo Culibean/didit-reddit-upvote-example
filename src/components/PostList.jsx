@@ -4,6 +4,7 @@ import { Vote } from "./Vote";
 import { db } from "@/db";
 import { POSTS_PER_PAGE } from "@/config";
 import { GrRestaurant } from "react-icons/gr";
+import { Odor_Mean_Chey } from "next/font/google";
 
 export async function PostList({ currentPage = 1, searchParams }) {
   // TODO: add option to sort posts by date and votes
@@ -14,11 +15,14 @@ export async function PostList({ currentPage = 1, searchParams }) {
     dateOrder = "diditposts.created_at DESC";
   } else if (searchParams?.sort === "date_asc") {
     dateOrder = "diditposts.created_at ASC";
+  } else if (searchParams?.sort === "controversial") {
+    dateOrder = "controversy DESC";
   }
 
   const { rows: posts } =
     await db.query(`SELECT diditposts.id, diditposts.title, diditposts.body, diditposts.created_at, users.name, 
-    COALESCE(SUM(votes.vote), 0) AS vote_total
+    COALESCE(SUM(votes.vote), 0) AS vote_total,
+    COALESCE(ABS(SUM(votes.vote)), 0) AS controversy
      FROM diditposts
      JOIN users ON diditposts.user_id = users.id
      LEFT JOIN votes ON votes.post_id = diditposts.id
@@ -53,10 +57,18 @@ export async function PostList({ currentPage = 1, searchParams }) {
         </Link>
         <Link
           className="bg-pink-300 text-black px-3 py-2 rounded"
-          href="/?sort=date_asc"
+          href="/?sort=top"
         >
           {" "}
-          Oldest first{""}
+          Top Posts{""}
+        </Link>
+
+        <Link
+          className="bg-pink-300 text-black px-3 py-2 rounded"
+          href="/?sort=controversial"
+        >
+          {" "}
+          Hot Topics{""}
         </Link>
       </section>
       <ul className="max-w-screen-lg mx-auto p-4 mb-4">
